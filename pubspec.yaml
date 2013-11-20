@@ -1,0 +1,8 @@
+name: mandrill_api
+version: 1.0.0
+description: The official API client for the Mandrill email as a service product.
+author: Mandrill Devs <community@mandrill.com>
+homepage: https://bitbucket.org/mailchimp/mandrill-api-dart
+documentation: https://mandrillapp.com/api/docs/index.dart.html
+dev_dependencies:
+  unittest: any
