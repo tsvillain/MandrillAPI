@@ -77,12 +77,18 @@ class InvalidDeleteDefaultPoolError extends MandrillError {
 class InvalidDeleteNonEmptyPoolError extends MandrillError {
   const InvalidDeleteNonEmptyPoolError(msg) : super(msg);
 }
+class MetadataFieldLimitError extends MandrillError {
+  const MetadataFieldLimitError(msg) : super(msg);
+}
+class UnknownMetadataFieldError extends MandrillError {
+  const UnknownMetadataFieldError(msg) : super(msg);
+}
 
 var MANDRILL_OPTS = {
   'host': 'mandrillapp.com',
   'port': 443,
   'prefix': '/api/1.0/',
-  'headers': {'Content-Type': 'application/json', 'User-Agent': 'Mandrill-Dart/1.0.0'}
+  'headers': {'Content-Type': 'application/json', 'User-Agent': 'Mandrill-Dart/1.0.1'}
 };
 
 abstract class APIBase {
@@ -102,6 +108,7 @@ abstract class APIBase {
   var urls;
   var webhooks;
   var senders;
+  var metadata;
 
   ///Initialize the API client, using [apikey] as the API key
   APIBase(this.apikey, [this.debug = false]) {
@@ -119,6 +126,7 @@ abstract class APIBase {
     urls = new Urls(this);
     webhooks = new Webhooks(this);
     senders = new Senders(this);
+    metadata = new Metadata(this);
   }
 
   ///Build the API call and delegate to the appropriate implementation for making the call
@@ -181,6 +189,10 @@ abstract class APIBase {
         return new InvalidDeleteDefaultPoolError(errorBody['message']);
       case 'Invalid_DeleteNonEmptyPool':
         return new InvalidDeleteNonEmptyPoolError(errorBody['message']);
+      case 'Metadata_FieldLimit':
+        return new MetadataFieldLimitError(errorBody['message']);
+      case 'Unknown_MetadataField':
+        return new UnknownMetadataFieldError(errorBody['message']);
       default:
         //The type might be newer than the client, so use a generic type where necessary
         return new MandrillError(errorBody['name'] + ': ' + errorBody['message']);
@@ -853,6 +865,37 @@ other Mandrill accounts from sending mail signed by your domain.
   async.Future timeSeries(String address) {
     var _params = {'address': address};
     return master.call('senders/time-series', _params);
+  }
+}
+///Namespace to document and complete metadata calls
+class Metadata {
+  APIBase master;
+
+  Metadata(this.master);
+
+  /**Get the list of custom metadata fields indexed for the account.
+   */
+  async.Future list() {
+    var _params = {};
+    return master.call('metadata/list', _params);
+  }
+  /**Add a new custom metadata field to be indexed for the account.
+   */
+  async.Future add(String name, [String view_Template = null]) {
+    var _params = {'name': name, 'view_template': view_Template};
+    return master.call('metadata/add', _params);
+  }
+  /**Update an existing custom metadata field.
+   */
+  async.Future update(String name, String view_Template) {
+    var _params = {'name': name, 'view_template': view_Template};
+    return master.call('metadata/update', _params);
+  }
+  /**Delete an existing custom metadata field. Deletion isn't instataneous, and /metadata/list will continue to return the field until the asynchronous deletion process is complete.
+   */
+  async.Future delete(String name) {
+    var _params = {'name': name};
+    return master.call('metadata/delete', _params);
   }
 }
 
