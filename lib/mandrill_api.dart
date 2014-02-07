@@ -65,6 +65,12 @@ class IPProvisionLimitError extends MandrillError {
 class UnknownPoolError extends MandrillError {
   const UnknownPoolError(msg) : super(msg);
 }
+class NoSendingHistoryError extends MandrillError {
+  const NoSendingHistoryError(msg) : super(msg);
+}
+class PoorReputationError extends MandrillError {
+  const PoorReputationError(msg) : super(msg);
+}
 class UnknownIPError extends MandrillError {
   const UnknownIPError(msg) : super(msg);
 }
@@ -77,6 +83,12 @@ class InvalidDeleteDefaultPoolError extends MandrillError {
 class InvalidDeleteNonEmptyPoolError extends MandrillError {
   const InvalidDeleteNonEmptyPoolError(msg) : super(msg);
 }
+class InvalidCustomDNSError extends MandrillError {
+  const InvalidCustomDNSError(msg) : super(msg);
+}
+class InvalidCustomDNSPendingError extends MandrillError {
+  const InvalidCustomDNSPendingError(msg) : super(msg);
+}
 class MetadataFieldLimitError extends MandrillError {
   const MetadataFieldLimitError(msg) : super(msg);
 }
@@ -88,7 +100,7 @@ var MANDRILL_OPTS = {
   'host': 'mandrillapp.com',
   'port': 443,
   'prefix': '/api/1.0/',
-  'headers': {'Content-Type': 'application/json', 'User-Agent': 'Mandrill-Dart/1.0.2'}
+  'headers': {'Content-Type': 'application/json', 'User-Agent': 'Mandrill-Dart/1.0.3'}
 };
 
 abstract class APIBase {
@@ -181,6 +193,10 @@ abstract class APIBase {
         return new IPProvisionLimitError(errorBody['message']);
       case 'Unknown_Pool':
         return new UnknownPoolError(errorBody['message']);
+      case 'NoSendingHistory':
+        return new NoSendingHistoryError(errorBody['message']);
+      case 'PoorReputation':
+        return new PoorReputationError(errorBody['message']);
       case 'Unknown_IP':
         return new UnknownIPError(errorBody['message']);
       case 'Invalid_EmptyDefaultPool':
@@ -189,6 +205,10 @@ abstract class APIBase {
         return new InvalidDeleteDefaultPoolError(errorBody['message']);
       case 'Invalid_DeleteNonEmptyPool':
         return new InvalidDeleteNonEmptyPoolError(errorBody['message']);
+      case 'Invalid_CustomDNS':
+        return new InvalidCustomDNSError(errorBody['message']);
+      case 'Invalid_CustomDNSPending':
+        return new InvalidCustomDNSPendingError(errorBody['message']);
       case 'Metadata_FieldLimit':
         return new MetadataFieldLimitError(errorBody['message']);
       case 'Unknown_MetadataField':
