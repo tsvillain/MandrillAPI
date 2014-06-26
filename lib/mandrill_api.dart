@@ -100,7 +100,7 @@ var MANDRILL_OPTS = {
   'host': 'mandrillapp.com',
   'port': 443,
   'prefix': '/api/1.0/',
-  'headers': {'Content-Type': 'application/json', 'User-Agent': 'Mandrill-Dart/1.0.3'}
+  'headers': {'Content-Type': 'application/json', 'User-Agent': 'Mandrill-Dart/1.0.4'}
 };
 
 abstract class APIBase {
@@ -521,7 +521,7 @@ class Messages {
     var _params = {'template_name': template_Name, 'template_content': template_Content, 'message': message, 'async': async, 'ip_pool': ip_Pool, 'send_at': send_At};
     return master.call('messages/send-template', _params);
   }
-  /**Search the content of recently sent messages and optionally narrow by date range, tags and senders
+  /**Search recently sent messages and optionally narrow by date range, tags, senders, and API keys. If no date range is specified, results within the last 7 days are returned. This method may be called up to 20 times per minute. If you need the data more often, you can use <a href="/api/docs/messages.html#method=info">/messages/info.json</a> to get the information for a single message, or <a href="http://help.mandrill.com/entries/21738186-Introduction-to-Webhooks">webhooks</a> to push activity to your own application for querying.
    */
   async.Future search([String query = "*", String date_From = null, String date_To = null, List tags = null, List senders = null, List api_Keys = null, int limit = 100]) {
     var _params = {'query': query, 'date_from': date_From, 'date_to': date_To, 'tags': tags, 'senders': senders, 'api_keys': api_Keys, 'limit': limit};
@@ -586,8 +586,8 @@ class Whitelists {
 currently on your blacklist, that blacklist entry will be removed
 automatically.
    */
-  async.Future add(String email) {
-    var _params = {'email': email};
+  async.Future add(String email, [String comment = null]) {
+    var _params = {'email': email, 'comment': comment};
     return master.call('whitelists/add', _params);
   }
   /**Retrieves your email rejection whitelist. You can provide an email
