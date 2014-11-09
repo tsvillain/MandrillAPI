@@ -106,21 +106,21 @@ var MANDRILL_OPTS = {
 abstract class APIBase {
   String apikey;
   bool debug;
-  var templates;
-  var exports;
-  var users;
-  var rejects;
-  var inbound;
-  var tags;
-  var messages;
-  var whitelists;
-  var ips;
-  var internal;
-  var subaccounts;
-  var urls;
-  var webhooks;
-  var senders;
-  var metadata;
+  Templates templates;
+  Exports exports;
+  Users users;
+  Rejects rejects;
+  Inbound inbound;
+  Tags tags;
+  Messages messages;
+  Whitelists whitelists;
+  Ips ips;
+  Internal internal;
+  Subaccounts subaccounts;
+  Urls urls;
+  Webhooks webhooks;
+  Senders senders;
+  Metadata metadata;
 
   ///Initialize the API client, using [apikey] as the API key
   APIBase(this.apikey, [this.debug = false]) {
