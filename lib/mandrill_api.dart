@@ -144,7 +144,7 @@ abstract class APIBase {
   ///Build the API call and delegate to the appropriate implementation for making the call
   async.Future call(String uri, Map params) {
     params['key'] = apikey;
-    var params_str = convert.JSON.encode(params);
+    var params_str = convert.json.encode(params);
     uri = ['https://', MANDRILL_OPTS['host'], MANDRILL_OPTS['prefix'], uri, '.json'].join();
     return request(Uri.parse(uri), MANDRILL_OPTS['headers'], params_str);
   }
@@ -224,13 +224,13 @@ abstract class APIBase {
     if (statusCode != 200) {
       var error;
       try {
-        error = castMandrillError(convert.JSON.decode(body));
+        error = castMandrillError(convert.json.decode(body));
       } catch(e) {
         error = new MandrillError('We received an unexpected error: $body');
       }
       throw error;
     } else {
-      return convert.JSON.decode(body);
+      return convert.json.decode(body);
     }
   }
 }
