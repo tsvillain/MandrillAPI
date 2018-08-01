@@ -1,8 +1,8 @@
 library mandrill_api_browser;
 import 'dart:html' as html;
 import 'dart:async' as async;
-import 'package:mandrill_api/mandrill_api.dart';
-export 'package:mandrill_api/mandrill_api.dart' show MANDRILL_OPTS;
+import 'mandrill_api.dart';
+export 'mandrill_api.dart' show MANDRILL_OPTS;
 
 ///Extend the base API class to make HTTP requests using dart:html
 class Mandrill extends APIBase {
