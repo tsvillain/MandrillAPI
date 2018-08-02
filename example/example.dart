@@ -12,15 +12,17 @@ void main() async {
 
   final mandrill = createMandrill(apiKey);
 
+  final recipients = [
+    new Recipient(email: 'customer1@example.com', name: 'Customer 1'),
+    new Recipient(email: 'customer2@example.com', name: 'Customer 2', type: RecipientType.bcc),
+  ];
+
   final message = new OutgoingMessage(
     html: '<h1>Welcome to our website</h1>',
     text: 'WELCOME TO OUR WEBSITE',
     fromEmail: 'good@website.com',
     fromName: 'Greatest Website',
-    to: [
-      new Recipient(email: 'customer1@example-domain.com', name: 'Customer 1'),
-      new Recipient(email: 'customer2@example-domain.com', name: 'Customer 2', type: RecipientType.bcc),
-    ],
+    to: recipients,
     important: true,
   );
 

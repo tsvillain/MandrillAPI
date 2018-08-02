@@ -16,13 +16,16 @@ final apiKey = 'your-key';
 
 main() async {
   final mandrill = createMandrill(apiKey);
+
+  final recipients = [
+    new Recipient(email: 'customer1@example.com', name: 'Customer 1'),
+    new Recipient(email: 'customer2@example.com', name: 'Customer 2', type: RecipientType.bcc),
+  ];
+
   final message = new OutgoingMessage(
     html: '<h1>Welcome to our website</h1>',
     text: 'WELCOME TO OUR WEBSITE',
-    to: [
-      new Recipient(email: 'customer1@example-domain.com', name: 'Customer 1'),
-      new Recipient(email: 'customer2@example-domain.com', name: 'Customer 2', type: RecipientType.bcc),
-    ],
+    to: recipients,
     /* etc... */
   );
 
@@ -48,3 +51,6 @@ To see which API calls have been implemented, please check the
 If you need other resources to be implemented we are happy to accept Merge Requests, but we are also willing to
 add new resources if requested.
 
+## License
+
+MIT
