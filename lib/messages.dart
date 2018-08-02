@@ -2,6 +2,7 @@ import 'package:codable/codable.dart';
 import 'package:meta/meta.dart';
 
 part 'src/messages/messages.dart';
+part 'src/messages/error.dart';
 
 abstract class _Coding extends Coding {
   List<Map<String, dynamic>> _toVarList(Map<String, dynamic> vars) =>

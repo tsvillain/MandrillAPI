@@ -1,5 +1,6 @@
 import 'package:mandrill/src/client.dart';
 import 'messages.dart';
+
 part 'src/resources/messages.dart';
 
 class Mandrill {

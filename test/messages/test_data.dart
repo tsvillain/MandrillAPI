@@ -104,3 +104,12 @@ final sendMessageResponse = '''
     }
 ]
 ''';
+
+final errorResponse = '''
+{
+    "status": "error",
+    "code": 12,
+    "name": "Unknown_Subaccount",
+    "message": "No subaccount exists with the id 'customer-123'"
+}
+''';
