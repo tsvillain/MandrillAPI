@@ -5,6 +5,34 @@ This is a native dart implementation of a [Mandrill API](https://mandrillapp.com
 It's not a fork of the other `mandrill_api` package, because the other library is quite old, unmaintained
 and not very suitable to be ported to Dart 2.0
 
+## Usage
+
+```dart
+import 'package:mandrill/mandrill_server.dart';
+// or if you're in the browser:
+// import 'package:mandrill/mandrill_browser.dart';
+
+final apiKey = 'your-key';
+
+main() async {
+  final mandrill = createMandrill(apiKey);
+  final message = new OutgoingMessage(
+    html: '<h1>Welcome to our website</h1>',
+    text: 'WELCOME TO OUR WEBSITE',
+    to: [
+      new Recipient(email: 'customer1@example-domain.com', name: 'Customer 1'),
+      new Recipient(email: 'customer2@example-domain.com', name: 'Customer 2', type: RecipientType.bcc),
+    ],
+    /* etc... */
+  );
+
+  final response = await mandrill.messages.send(message);
+}
+```
+
+For a full example, please see `example/example.dart`.
+
+
 ## Stability
 
 This library is meant to be rock solid, using [Codable](https://pub.dartlang.org/packages/codable) to
