@@ -115,6 +115,14 @@ main() {
 
         expect(archiveJson, testJson);
       });
+      test('properly handles null values', () {
+        final recipient = new OutgoingMessage();
+        final archive = KeyedArchive.archive(recipient);
+
+        final archiveJson = jsonDecode(jsonEncode(archive));
+
+        expect(archiveJson, {});
+      });
     });
     group('SentMessageResponse', () {
       test('properly decodes object', () {

@@ -1,6 +1,6 @@
 part of '../../messages.dart';
 
-class ErrorResponse extends Decoding {
+class ErrorResponse extends MandrillResponse {
   String status;
   int code;
   String name;

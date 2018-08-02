@@ -33,7 +33,9 @@ analyze() async {
 }
 
 @Task()
-testUnit() => new TestRunner().testAsync(files: new Directory('test'), concurrency: 4);
+testUnit() =>
+    // Setting concurrency to 1 because it makes the output more readable and the project is quite small anyway
+    new TestRunner().testAsync(files: new Directory('test'), concurrency: 1);
 
 @DefaultTask()
 @Depends(checkFormat, analyze, testUnit)

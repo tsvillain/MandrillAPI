@@ -225,7 +225,7 @@ class SentMessageRejectReason {
   static fromString(String id) => id == null ? null : values.firstWhere((type) => type.id == id);
 }
 
-class SentMessagesResponse extends Decoding {
+class SentMessagesResponse extends MandrillResponse {
   List<SentMessage> sentMessages;
 
   @override
@@ -235,7 +235,7 @@ class SentMessagesResponse extends Decoding {
   }
 }
 
-class SentMessage extends Decoding {
+class SentMessage extends MandrillResponse {
   String id;
   String email;
   SentMessageStatus status;
