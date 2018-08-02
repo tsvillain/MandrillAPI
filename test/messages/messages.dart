@@ -13,7 +13,7 @@ main() {
         expect(RecipientType.fromString('to'), RecipientType.to);
         expect(RecipientType.fromString('cc'), RecipientType.cc);
         expect(RecipientType.fromString('bcc'), RecipientType.bcc);
-        expect(() => RecipientType.fromString('foo'), throwsA(isInstanceOf<StateError>()));
+        expect(() => RecipientType.fromString('foo'), throwsA(TypeMatcher<StateError>()));
       });
     });
     group('Recipient', () {
