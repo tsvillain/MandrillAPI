@@ -127,7 +127,7 @@ main() {
     group('SentMessageResponse', () {
       test('properly decodes object', () {
         final json = jsonDecode(test_data.sendMessageResponse);
-        final archive = KeyedArchive.unarchive({'sent_messages': json});
+        final archive = KeyedArchive.unarchive({'list': json});
         final sentMessageResponse = SentMessagesResponse()..decode(archive);
 
         expect(sentMessageResponse.sentMessages.length, 2);

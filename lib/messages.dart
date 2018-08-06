@@ -1,24 +1,20 @@
 import 'package:codable/codable.dart';
 import 'package:meta/meta.dart';
 
-part 'src/messages/messages.dart';
-part 'src/messages/error.dart';
+import 'src/utils.dart' as utils;
 
-abstract class _Coding extends Coding {
-  List<Map<String, dynamic>> _toVarList(Map<String, dynamic> vars) => vars == null
-      ? null
-      : vars.keys.map<Map<String, dynamic>>((key) => {'name': key, 'content': vars[key]}).toList(growable: false);
-}
+part 'src/messages/error.dart';
+part 'src/messages/messages.dart';
 
 /// Use this class if you do not intend on implementing the [Coding.encode] method.
-abstract class MandrillResponse extends _Coding {
+abstract class MandrillResponse extends Coding {
   /// Not implemented. Do not invoke!
   @override
   void encode(_) => throw new UnimplementedError('This message cannot be encoded.');
 }
 
 /// Use this class if you do not intend on implementing the [Coding.decode] method.
-abstract class Encoding extends _Coding {
+abstract class Encoding extends Coding {
   /// Not implemented. Do not invoke!
   @override
   // ignore: must_call_super

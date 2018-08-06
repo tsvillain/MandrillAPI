@@ -27,8 +27,12 @@ typedef T ResponseParser<T extends MandrillResponse>(T responseCoding, dynamic r
 
 /// The default [ResponseParser] simply takes the response Map, and invokes `.decode(archive)` on the
 /// provided [Coding] object.
+///
+/// If the response is a [List], then it will be converted to a Map: `{'list': response}`.
 T defaultResponseParser<T extends MandrillResponse>(T responseCoding, dynamic response) {
-  if (response is! Map) {
+  if (response is List) {
+    response = {'list': response};
+  } else if (response is! Map) {
     // If this exception is thrown here, it probably means that you need to provide your own
     // ResponseParser (or Mandrill is bugging out).
     throw new InvalidResponseException('The returned response was not a Map.');

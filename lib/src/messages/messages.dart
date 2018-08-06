@@ -39,7 +39,7 @@ class RecipientMergeVars extends Encoding {
 
   @override
   void encode(KeyedArchive object) {
-    object..encode('rcpt', email)..encode('vars', _toVarList(vars));
+    object..encode('rcpt', email)..encode('vars', utils.toVarList(vars));
   }
 }
 
@@ -165,7 +165,7 @@ class OutgoingMessage extends Encoding {
       ..encode('return_path_domain', returnPathDomain)
       ..encode('merge', merge)
       ..encode('merge_language', mergeLanguage)
-      ..encode('global_merge_vars', _toVarList(globalMergeVars))
+      ..encode('global_merge_vars', utils.toVarList(globalMergeVars))
       ..encodeObjects('merge_vars', mergeVars)
       ..encode('tags', tags)
       ..encode('subaccount', subaccount)
@@ -232,7 +232,7 @@ class SentMessagesResponse extends MandrillResponse {
   @override
   decode(KeyedArchive object) {
     super.decode(object);
-    sentMessages = object.decodeObjects('sent_messages', () => new SentMessage());
+    sentMessages = object.decodeObjects('list', () => new SentMessage());
   }
 }
 
