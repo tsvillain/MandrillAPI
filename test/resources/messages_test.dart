@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:mandrill/client/client.dart';
 import 'package:mandrill/mandrill.dart';
 import 'package:mandrill/messages.dart';
 import 'package:mockito/mockito.dart';
@@ -9,8 +8,6 @@ import 'package:test/test.dart';
 
 import '../mocks.dart';
 import '../test_data.dart' as test_data;
-
-//import 'test_data.dart' as test_data;
 
 main() {
   group('Messages resource', () {
