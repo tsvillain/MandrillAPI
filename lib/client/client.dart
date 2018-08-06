@@ -49,7 +49,9 @@ abstract class MandrillClient {
   MandrillClient(this.apiKey, [MandrillOptions options]) : this.options = options ?? const MandrillOptions();
 
   Future<T> call<T extends MandrillResponse>(String path, Map body, T responseCoding,
-      {ResponseParser<T> responseParser: defaultResponseParser}) async {
+      // The type for the responseParser should be `ResponseParser<T>`, but there is an issue with mockito,
+      // see: https://github.com/dart-lang/mockito/issues/155#issuecomment-410658863
+      {Function responseParser: defaultResponseParser}) async {
     final uri = new Uri(
       scheme: options.scheme,
       host: options.host,

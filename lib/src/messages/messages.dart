@@ -71,6 +71,7 @@ class File extends Encoding {
 }
 
 class OutgoingMessage extends Encoding {
+  /// This field is ignored if `.sendTemplate()` is used.
   final String html;
   final String text;
   final String subject;

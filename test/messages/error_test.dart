@@ -4,7 +4,7 @@ import 'package:codable/codable.dart';
 import 'package:mandrill/messages.dart';
 import 'package:test/test.dart';
 
-import 'test_data.dart' as test_data;
+import '../test_data.dart' as test_data;
 
 main() {
   group('Error', () {
