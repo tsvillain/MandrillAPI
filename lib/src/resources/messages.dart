@@ -5,24 +5,6 @@ class Messages {
 
   Messages(this.client);
 
-  /// When sending messages with the Mandrill API, the response JSON from their API is a List of sent messages,
-  /// e.g.:
-  ///
-  ///     [
-  ///       { "_id": "id001", "email": "recipient1@example.com", /* etc... */ },
-  ///       { "_id": "id002", "email": "recipient2@example.com", /* etc... */ }
-  ///     ]
-  ///
-  /// But Codable can't handle JSON that represents a `List`, but only `Map`s.
-  /// So this [ResponseParser] puts the returned `List` into a map under the key `sent_messages`, which can
-  /// then be decoded by the [SentMessagesResponse].
-//  ResponseParser<SentMessagesResponse> _sentMessageResponseParser = (coding, response) {
-//    // An individual response parser is necessary here, because Codable can't handle Lists.
-//    response = {'sent_messages': response};
-//    final archive = KeyedArchive.unarchive(response);
-//    return coding..decode(archive);
-//  };
-
   /// - `sendAsync`: enable a background sending mode that is optimized for bulk sending. In async mode, messages/send
   ///   will immediately return a status of "queued" for every recipient. To handle rejections when sending in async
   ///   mode, set up a webhook for the 'reject' event. Defaults to false for messages with no more than 10 recipients;
@@ -53,16 +35,8 @@ class Messages {
   ///   For backwards-compatibility, the template name may also be used but the immutable slug is preferred.
   /// - `templateContent`: a Map where the key is the content block to set the content for, and the value is the
   ///   actual content to put into the block.
-  /// - `sendAsync`: enable a background sending mode that is optimized for bulk sending. In async mode, messages/send
-  ///   will immediately return a status of "queued" for every recipient. To handle rejections when sending in async
-  ///   mode, set up a webhook for the 'reject' event. Defaults to false for messages with no more than 10 recipients;
-  ///   messages with more than 10 recipients are always sent asynchronously, regardless of the value of async.
-  /// - `ipPool`: the name of the dedicated ip pool that should be used to send the message. If you do not have any
-  ///   dedicated IPs, this parameter has no effect. If you specify a pool that does not exist, your default pool will
-  ///   be used instead.
-  /// - `sendAt`: when this message should be sent. If you specify a time in the past, the message will be sent
-  ///   immediately. An additional fee applies for scheduled email, and this feature is only available to accounts with
-  ///   a positive balance.
+  ///
+  /// For `sendAsync`, `ipPool` and `sendAt` please look at the [send] documentation.
   Future<SentMessagesResponse> sendTemplate(
     String templateName,
     OutgoingMessage message, {
