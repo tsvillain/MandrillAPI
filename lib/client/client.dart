@@ -84,8 +84,8 @@ abstract class MandrillClient {
 
         error = MandrillException.fromError(errorResponse);
       } catch (e) {
-        _log.warning('The body returned by Mandrill could not be parsed properly: $body');
-        error = new InvalidResponseException('We received an unexpected error: $e');
+        _log.warning('The body returned by Mandrill could not be parsed properly: $e');
+        error = new InvalidResponseException(body);
       }
       throw error;
     }
