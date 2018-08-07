@@ -6,7 +6,7 @@ import 'src/utils.dart' as utils;
 part 'src/messages/error.dart';
 part 'src/messages/messages.dart';
 
-/// Use this class if you do not intend on implementing the [Coding.encode] method.
+/// Use this class if you do not intend on implementing [Coding.encode].
 abstract class MandrillResponse extends Coding {
   /// Not implemented. Do not invoke!
   @override
@@ -14,7 +14,7 @@ abstract class MandrillResponse extends Coding {
       throw new UnimplementedError('This message cannot be encoded.');
 }
 
-/// Use this class if you do not intend on implementing the [Coding.decode] method.
+/// Use this class if you do not intend on implementing [Coding.decode].
 abstract class Encoding extends Coding {
   /// Not implemented. Do not invoke!
   @override

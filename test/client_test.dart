@@ -80,8 +80,8 @@ main() {
         }
       });
       test(
-          'throws InvalidResponseException if the returned error was not parseable',
-          () {
+          'throws InvalidResponseException if the '
+          'returned error was not parseable', () {
         try {
           mandrillClient.handleResponse(501, 'Invalid response');
         } catch (e) {

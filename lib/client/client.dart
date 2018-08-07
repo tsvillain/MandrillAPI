@@ -29,17 +29,18 @@ class MandrillOptions {
 typedef T ResponseParser<T extends MandrillResponse>(
     T responseCoding, dynamic response);
 
-/// The default [ResponseParser] simply takes the response Map, and invokes `.decode(archive)` on the
-/// provided [Coding] object.
+/// The default [ResponseParser] simply takes the response Map, and invokes
+/// `.decode(archive)` on the provided [Coding] object.
 ///
-/// If the response is a [List], then it will be converted to a Map: `{'list': response}`.
+/// If the response is a [List], then it will be converted to a Map:
+/// `{'list': response}`.
 T defaultResponseParser<T extends MandrillResponse>(
     T responseCoding, dynamic response) {
   if (response is List) {
     response = <String, dynamic>{'list': response};
   } else if (response is! Map<String, dynamic>) {
-    // If this exception is thrown here, it probably means that you need to provide your own
-    // ResponseParser (or Mandrill is bugging out).
+    // If this exception is thrown here, it probably means that you need to
+    // provide your own ResponseParser (or Mandrill is bugging out).
     throw new InvalidResponseException('The returned response was not a Map.');
   }
   final archive = KeyedArchive.unarchive(response as Map<String, dynamic>);

@@ -36,7 +36,8 @@ analyze() async {
 
 @Task()
 testUnit() =>
-    // Setting concurrency to 1 because it makes the output more readable and the project is quite small anyway
+    // Setting concurrency to 1 because it makes the output more readable and
+    // the project is quite small anyway
     new TestRunner().testAsync(files: new Directory('test'), concurrency: 1);
 
 @DefaultTask()
