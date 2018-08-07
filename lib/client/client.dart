@@ -19,25 +19,30 @@ class MandrillOptions {
     this.host: 'mandrillapp.com',
     this.port: 443,
     this.pathPrefix: '/api/1.0/',
-    this.headers: const {'Content-Type': 'application/json', 'User-Agent': 'Mandrill-Dart/1.0.4'},
+    this.headers: const {
+      'Content-Type': 'application/json',
+      'User-Agent': 'Mandrill-Dart/1.0.4'
+    },
   });
 }
 
-typedef T ResponseParser<T extends MandrillResponse>(T responseCoding, dynamic response);
+typedef T ResponseParser<T extends MandrillResponse>(
+    T responseCoding, dynamic response);
 
 /// The default [ResponseParser] simply takes the response Map, and invokes `.decode(archive)` on the
 /// provided [Coding] object.
 ///
 /// If the response is a [List], then it will be converted to a Map: `{'list': response}`.
-T defaultResponseParser<T extends MandrillResponse>(T responseCoding, dynamic response) {
+T defaultResponseParser<T extends MandrillResponse>(
+    T responseCoding, dynamic response) {
   if (response is List) {
-    response = {'list': response};
-  } else if (response is! Map) {
+    response = <String, dynamic>{'list': response};
+  } else if (response is! Map<String, dynamic>) {
     // If this exception is thrown here, it probably means that you need to provide your own
     // ResponseParser (or Mandrill is bugging out).
     throw new InvalidResponseException('The returned response was not a Map.');
   }
-  final archive = KeyedArchive.unarchive(response);
+  final archive = KeyedArchive.unarchive(response as Map<String, dynamic>);
   return responseCoding..decode(archive);
 }
 
@@ -50,12 +55,12 @@ abstract class MandrillClient {
 
   final MandrillOptions options;
 
-  MandrillClient(this.apiKey, [MandrillOptions options]) : this.options = options ?? const MandrillOptions();
+  MandrillClient(this.apiKey, [MandrillOptions options])
+      : this.options = options ?? const MandrillOptions();
 
-  Future<T> call<T extends MandrillResponse>(String path, Map body, T responseCoding,
-      // The type for the responseParser should be `ResponseParser<T>`, but there is an issue with mockito,
-      // see: https://github.com/dart-lang/mockito/issues/155#issuecomment-410658863
-      {Function responseParser: defaultResponseParser}) async {
+  Future<T> call<T extends MandrillResponse>(
+      String path, Map body, T responseCoding,
+      {ResponseParser<T> responseParser}) async {
     final uri = new Uri(
       scheme: options.scheme,
       host: options.host,
@@ -66,8 +71,16 @@ abstract class MandrillClient {
     final bodyWithKey = new Map.from(body)..['key'] = apiKey;
 
     _log.finer('Making Mandrill request to $uri');
-    final responseMap = await request(uri, options.headers, jsonEncode(bodyWithKey));
-    return responseParser(responseCoding, responseMap);
+    final responseMap =
+        await request(uri, options.headers, jsonEncode(bodyWithKey));
+
+    T response;
+    if (responseParser == null) {
+      response = defaultResponseParser<T>(responseCoding, responseMap);
+    } else {
+      response = responseParser(responseCoding, responseMap);
+    }
+    return response;
   }
 
   /// The function that does the actual HTTP request.
@@ -79,12 +92,14 @@ abstract class MandrillClient {
     if (statusCode != 200) {
       MandrillException error;
       try {
-        final errorArchive = KeyedArchive.unarchive(jsonDecode(body));
+        final errorArchive =
+            KeyedArchive.unarchive(jsonDecode(body) as Map<String, dynamic>);
         final errorResponse = new ErrorResponse()..decode(errorArchive);
 
         error = MandrillException.fromError(errorResponse);
       } catch (e) {
-        _log.warning('The body returned by Mandrill could not be parsed properly: $e');
+        _log.warning(
+            'The body returned by Mandrill could not be parsed properly: $e');
         error = new InvalidResponseException(body);
       }
       throw error;
@@ -93,6 +108,9 @@ abstract class MandrillClient {
     return jsonDecode(body);
   }
 
-  static DateFormat _dateFormat = DateFormat('yyyy-MM-dd HH:mm:ss');
-  static String formatDate(DateTime date) => date == null ? null : _dateFormat.format(date.toUtc());
+  static final DateFormat _dateFormat = DateFormat('yyyy-MM-dd HH:mm:ss');
+
+  /// Formats a [DateTime] the way the Mandrill API expects it.
+  static String formatDate(DateTime date) =>
+      date == null ? null : _dateFormat.format(date.toUtc());
 }

@@ -9,4 +9,6 @@
 /// If `null` is provided as [vars], then `null` is returned.
 List<Map<String, dynamic>> toVarList(Map<String, dynamic> vars) => vars == null
     ? null
-    : vars.keys.map<Map<String, dynamic>>((key) => {'name': key, 'content': vars[key]}).toList(growable: false);
+    : vars.keys
+        .map<Map<String, dynamic>>((key) => {'name': key, 'content': vars[key]})
+        .toList(growable: false);

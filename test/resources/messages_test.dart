@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:mandrill/client/client.dart';
 import 'package:mandrill/mandrill.dart';
 import 'package:mandrill/messages.dart';
 import 'package:mockito/mockito.dart';
@@ -21,19 +22,22 @@ main() {
 
     group('.send', () {
       test('sends valid JSON and handles response properly', () async {
-        when(mockClient.call<SentMessagesResponse>('messages/send', captureAny, captureAny,
-                responseParser: captureAnyNamed('responseParser')))
+        when(mockClient.call<SentMessagesResponse>(
+                'messages/send', captureAny, captureAny))
             .thenAnswer((invocation) {
-          SentMessagesResponse response = invocation.positionalArguments[2];
-          Function parser = invocation.namedArguments[new Symbol('responseParser')];
-          return new Future.value(parser(response, jsonDecode(test_data.sendMessageResponse)));
+          final SentMessagesResponse response =
+              invocation.positionalArguments[2];
+          return new Future.value(defaultResponseParser<SentMessagesResponse>(
+              response, jsonDecode(test_data.sendMessageResponse)));
         });
 
-        final message = new OutgoingMessage(text: 'text content', inlineCss: true);
-        final response = await messages.send(message, sendAsync: true, sendAt: new DateTime.utc(2029, 1, 1));
+        final message =
+            new OutgoingMessage(text: 'text content', inlineCss: true);
+        final response = await messages.send(message,
+            sendAsync: true, sendAt: new DateTime.utc(2029, 1, 1));
 
-        final verificationResult = verify(mockClient.call<SentMessagesResponse>('messages/send', captureAny, captureAny,
-            responseParser: captureAnyNamed('responseParser')));
+        final verificationResult = verify(mockClient.call<SentMessagesResponse>(
+            'messages/send', captureAny, captureAny));
         verificationResult.called(1);
         final body = verificationResult.captured[0];
 
@@ -46,17 +50,19 @@ main() {
 
         expect(response, const TypeMatcher<SentMessagesResponse>());
         expect(response.sentMessages, hasLength(2));
-        expect(response.sentMessages.first.email, 'recipient.email@example.com');
+        expect(
+            response.sentMessages.first.email, 'recipient.email@example.com');
       });
     });
     group('.sendTemplate', () {
       test('sends valid JSON and handles response properly', () async {
-        when(mockClient.call<SentMessagesResponse>('messages/send-template', captureAny, captureAny,
-                responseParser: captureAnyNamed('responseParser')))
+        when(mockClient.call<SentMessagesResponse>(
+                'messages/send-template', captureAny, captureAny))
             .thenAnswer((invocation) {
-          SentMessagesResponse response = invocation.positionalArguments[2];
-          Function parser = invocation.namedArguments[new Symbol('responseParser')];
-          return new Future.value(parser(response, jsonDecode(test_data.sendMessageResponse)));
+          final SentMessagesResponse response =
+              invocation.positionalArguments[2];
+          return new Future.value(defaultResponseParser<SentMessagesResponse>(
+              response, jsonDecode(test_data.sendMessageResponse)));
         });
 
         final message = new OutgoingMessage(text: 'text content');
@@ -87,7 +93,8 @@ main() {
 
         expect(response, const TypeMatcher<SentMessagesResponse>());
         expect(response.sentMessages, hasLength(2));
-        expect(response.sentMessages.first.email, 'recipient.email@example.com');
+        expect(
+            response.sentMessages.first.email, 'recipient.email@example.com');
       });
     });
   });

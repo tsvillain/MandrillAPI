@@ -27,7 +27,10 @@ class Recipient extends Encoding {
 
   @override
   void encode(KeyedArchive object) {
-    object..encode('email', email)..encode('name', name)..encode('type', type.id);
+    object
+      ..encode('email', email)
+      ..encode('name', name)
+      ..encode('type', type.id);
   }
 }
 
@@ -66,7 +69,10 @@ class File extends Encoding {
 
   @override
   void encode(KeyedArchive object) {
-    object..encode('type', type)..encode('name', name)..encode('content', content);
+    object
+      ..encode('type', type)
+      ..encode('name', name)
+      ..encode('content', content);
   }
 }
 
@@ -191,7 +197,8 @@ class SentMessageStatus {
 
   const SentMessageStatus._(this.id);
 
-  static fromString(String id) => id == null ? null : values.firstWhere((type) => type.id == id);
+  static SentMessageStatus fromString(String id) =>
+      id == null ? null : values.firstWhere((type) => type.id == id);
 }
 
 class SentMessageRejectReason {
@@ -223,7 +230,8 @@ class SentMessageRejectReason {
 
   const SentMessageRejectReason._(this.id);
 
-  static fromString(String id) => id == null ? null : values.firstWhere((type) => type.id == id);
+  static SentMessageRejectReason fromString(String id) =>
+      id == null ? null : values.firstWhere((type) => type.id == id);
 }
 
 class SentMessagesResponse extends MandrillResponse {
@@ -247,7 +255,8 @@ class SentMessage extends MandrillResponse {
     super.decode(object);
     id = object.decode('_id');
     email = object.decode('email');
-    status = SentMessageStatus.fromString(object.decode('status'));
-    rejectReason = SentMessageRejectReason.fromString(object.decode('reject_reason'));
+    status = SentMessageStatus.fromString(object.decode('status') as String);
+    rejectReason =
+        SentMessageRejectReason.fromString(object.decode('reject_reason'));
   }
 }

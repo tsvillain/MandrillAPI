@@ -57,6 +57,7 @@ class Messages {
       'send_at': MandrillClient.formatDate(sendAt),
     };
 
-    return await client.call('messages/send-template', body, new SentMessagesResponse());
+    return await client.call(
+        'messages/send-template', body, new SentMessagesResponse());
   }
 }

@@ -70,125 +70,126 @@ class MandrillException implements Exception {
     }
   }
 
+  @override
   String toString() => message ?? 'GenericMandrillException';
 }
 
 class ValidationException extends MandrillException {
-  ValidationException._(message) : super._(message);
+  ValidationException._(String message) : super._(message);
 }
 
 class InvalidKeyException extends MandrillException {
-  InvalidKeyException._(message) : super._(message);
+  InvalidKeyException._(String message) : super._(message);
 }
 
 class PaymentRequiredException extends MandrillException {
-  PaymentRequiredException._(message) : super._(message);
+  PaymentRequiredException._(String message) : super._(message);
 }
 
 class UnknownSubaccountException extends MandrillException {
-  UnknownSubaccountException._(message) : super._(message);
+  UnknownSubaccountException._(String message) : super._(message);
 }
 
 class UnknownTemplateException extends MandrillException {
-  UnknownTemplateException._(message) : super._(message);
+  UnknownTemplateException._(String message) : super._(message);
 }
 
 class ServiceUnavailableException extends MandrillException {
-  ServiceUnavailableException._(message) : super._(message);
+  ServiceUnavailableException._(String message) : super._(message);
 }
 
 class UnknownMessageException extends MandrillException {
-  UnknownMessageException._(message) : super._(message);
+  UnknownMessageException._(String message) : super._(message);
 }
 
 class InvalidTagNameException extends MandrillException {
-  InvalidTagNameException._(message) : super._(message);
+  InvalidTagNameException._(String message) : super._(message);
 }
 
 class InvalidRejectException extends MandrillException {
-  InvalidRejectException._(message) : super._(message);
+  InvalidRejectException._(String message) : super._(message);
 }
 
 class UnknownSenderException extends MandrillException {
-  UnknownSenderException._(message) : super._(message);
+  UnknownSenderException._(String message) : super._(message);
 }
 
 class UnknownUrlException extends MandrillException {
-  UnknownUrlException._(message) : super._(message);
+  UnknownUrlException._(String message) : super._(message);
 }
 
 class UnknownTrackingDomainException extends MandrillException {
-  UnknownTrackingDomainException._(message) : super._(message);
+  UnknownTrackingDomainException._(String message) : super._(message);
 }
 
 class InvalidTemplateException extends MandrillException {
-  InvalidTemplateException._(message) : super._(message);
+  InvalidTemplateException._(String message) : super._(message);
 }
 
 class UnknownWebhookException extends MandrillException {
-  UnknownWebhookException._(message) : super._(message);
+  UnknownWebhookException._(String message) : super._(message);
 }
 
 class UnknownInboundDomainException extends MandrillException {
-  UnknownInboundDomainException._(message) : super._(message);
+  UnknownInboundDomainException._(String message) : super._(message);
 }
 
 class UnknownInboundRouteException extends MandrillException {
-  UnknownInboundRouteException._(message) : super._(message);
+  UnknownInboundRouteException._(String message) : super._(message);
 }
 
 class UnknownExportException extends MandrillException {
-  UnknownExportException._(message) : super._(message);
+  UnknownExportException._(String message) : super._(message);
 }
 
 class IpProvisionLimitException extends MandrillException {
-  IpProvisionLimitException._(message) : super._(message);
+  IpProvisionLimitException._(String message) : super._(message);
 }
 
 class UnknownPoolException extends MandrillException {
-  UnknownPoolException._(message) : super._(message);
+  UnknownPoolException._(String message) : super._(message);
 }
 
 class NoSendingHistoryException extends MandrillException {
-  NoSendingHistoryException._(message) : super._(message);
+  NoSendingHistoryException._(String message) : super._(message);
 }
 
 class PoorReputationException extends MandrillException {
-  PoorReputationException._(message) : super._(message);
+  PoorReputationException._(String message) : super._(message);
 }
 
 class UnknownIpException extends MandrillException {
-  UnknownIpException._(message) : super._(message);
+  UnknownIpException._(String message) : super._(message);
 }
 
 class InvalidEmptyDefaultPoolException extends MandrillException {
-  InvalidEmptyDefaultPoolException._(message) : super._(message);
+  InvalidEmptyDefaultPoolException._(String message) : super._(message);
 }
 
 class InvalidDeleteDefaultPoolException extends MandrillException {
-  InvalidDeleteDefaultPoolException._(message) : super._(message);
+  InvalidDeleteDefaultPoolException._(String message) : super._(message);
 }
 
 class InvalidDeleteNonEmptyPoolException extends MandrillException {
-  InvalidDeleteNonEmptyPoolException._(message) : super._(message);
+  InvalidDeleteNonEmptyPoolException._(String message) : super._(message);
 }
 
 class InvalidCustomDnsException extends MandrillException {
-  InvalidCustomDnsException._(message) : super._(message);
+  InvalidCustomDnsException._(String message) : super._(message);
 }
 
 class InvalidCustomDnsPendingException extends MandrillException {
-  InvalidCustomDnsPendingException._(message) : super._(message);
+  InvalidCustomDnsPendingException._(String message) : super._(message);
 }
 
 class MetadataFieldLimitException extends MandrillException {
-  MetadataFieldLimitException._(message) : super._(message);
+  MetadataFieldLimitException._(String message) : super._(message);
 }
 
 class UnknownMetadataFieldException extends MandrillException {
-  UnknownMetadataFieldException._(message) : super._(message);
+  UnknownMetadataFieldException._(String message) : super._(message);
 }
 
 class InvalidResponseException extends MandrillException {
-  InvalidResponseException(message) : super._(message);
+  InvalidResponseException(String message) : super._(message);
 }

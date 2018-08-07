@@ -8,10 +8,12 @@ main() {
       ErrorResponse errorResponse;
 
       errorResponse = new ErrorResponse()..name = 'Unknown_Template';
-      expect(MandrillException.fromError(errorResponse), TypeMatcher<UnknownTemplateException>());
+      expect(MandrillException.fromError(errorResponse),
+          TypeMatcher<UnknownTemplateException>());
 
       errorResponse = new ErrorResponse()..name = 'Invalid_CustomDNSPending';
-      expect(MandrillException.fromError(errorResponse), TypeMatcher<InvalidCustomDnsPendingException>());
+      expect(MandrillException.fromError(errorResponse),
+          TypeMatcher<InvalidCustomDnsPendingException>());
     });
   });
 }

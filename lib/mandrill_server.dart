@@ -6,4 +6,5 @@ export 'package:mandrill/messages.dart';
 export 'package:mandrill/exceptions.dart';
 
 /// A helper function to easily create a configured [Mandrill] object with a functioning HTTP client.
-Mandrill createMandrill(String apiKey, [MandrillOptions options]) => Mandrill(new ServerClient(apiKey, options));
+Mandrill createMandrill(String apiKey, [MandrillOptions options]) =>
+    Mandrill(new ServerClient(apiKey, options));

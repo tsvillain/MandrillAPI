@@ -13,12 +13,14 @@ main() {
         expect(RecipientType.fromString('to'), RecipientType.to);
         expect(RecipientType.fromString('cc'), RecipientType.cc);
         expect(RecipientType.fromString('bcc'), RecipientType.bcc);
-        expect(() => RecipientType.fromString('foo'), throwsA(TypeMatcher<StateError>()));
+        expect(() => RecipientType.fromString('foo'),
+            throwsA(TypeMatcher<StateError>()));
       });
     });
     group('Recipient', () {
       test('properly encodes object', () {
-        final recipient = new Recipient(email: 'dr.fr@nkenstein.com', name: 'Mr. F');
+        final recipient =
+            new Recipient(email: 'dr.fr@nkenstein.com', name: 'Mr. F');
         final archive = KeyedArchive.archive(recipient);
 
         expect(archive['email'], recipient.email);
@@ -26,14 +28,18 @@ main() {
         expect(archive['type'], RecipientType.to.id);
       });
       test('properly encodes different types', () {
-        final recipient = new Recipient(email: 'dr.fr@nkenstein.com', name: 'Mr. F', type: RecipientType.bcc);
+        final recipient = new Recipient(
+            email: 'dr.fr@nkenstein.com',
+            name: 'Mr. F',
+            type: RecipientType.bcc);
         final archive = KeyedArchive.archive(recipient);
         expect(archive['type'], RecipientType.bcc.id);
       });
     });
     group('RecipientMergeVars', () {
       test('properly encodes object', () {
-        final recipient = new RecipientMergeVars(email: 'recip@ient.com', vars: {'foo': 'bar', 'foo2': 'bar2'});
+        final recipient = new RecipientMergeVars(
+            email: 'recip@ient.com', vars: {'foo': 'bar', 'foo2': 'bar2'});
         final archive = KeyedArchive.archive(recipient);
 
         expect(archive['rcpt'], recipient.email);
@@ -45,7 +51,8 @@ main() {
     });
     group('RecipientMetadata', () {
       test('properly encodes object', () {
-        final recipient = new RecipientMetadata(email: 'recip@ient.com', values: {'foo': 'bar', 'foo2': 'bar2'});
+        final recipient = new RecipientMetadata(
+            email: 'recip@ient.com', values: {'foo': 'bar', 'foo2': 'bar2'});
         final archive = KeyedArchive.archive(recipient);
 
         expect(archive['rcpt'], recipient.email);
@@ -57,7 +64,10 @@ main() {
     });
     group('File', () {
       test('properly encodes object', () {
-        final recipient = new File(type: 'text/plain', name: 'myfile.txt', content: 'ZXhhbXBsZSBmaWxl');
+        final recipient = new File(
+            type: 'text/plain',
+            name: 'myfile.txt',
+            content: 'ZXhhbXBsZSBmaWxl');
         final archive = KeyedArchive.archive(recipient);
 
         expect(archive['type'], recipient.type);
@@ -74,8 +84,12 @@ main() {
           fromEmail: 'message.from_email@example.com',
           fromName: 'Example Name',
           to: [
-            new Recipient(email: 'recipient.email@example.com', name: 'Recipient Name'),
-            new Recipient(email: 'recipient2.email@example.com', name: 'Recipient Name 2', type: RecipientType.bcc),
+            new Recipient(
+                email: 'recipient.email@example.com', name: 'Recipient Name'),
+            new Recipient(
+                email: 'recipient2.email@example.com',
+                name: 'Recipient Name 2',
+                type: RecipientType.bcc),
           ],
           headers: {"Reply-To": "message.reply@example.com"},
           important: false,
@@ -95,7 +109,9 @@ main() {
           mergeLanguage: 'mailchimp',
           globalMergeVars: {'merge1': 'merge1 content'},
           mergeVars: [
-            new RecipientMergeVars(email: 'recipient.email@example.com', vars: {'merge2': 'merge2 content'})
+            new RecipientMergeVars(
+                email: 'recipient.email@example.com',
+                vars: {'merge2': 'merge2 content'})
           ],
           tags: ['password-resets'],
           subaccount: 'customer-123',
@@ -103,10 +119,22 @@ main() {
           googleAnalyticsCampaign: 'message.from_email@example.com',
           metadata: {"website": "www.example.com"},
           recipientMetadata: [
-            new RecipientMetadata(email: 'recipient.email@example.com', values: {"user_id": 123456})
+            new RecipientMetadata(
+                email: 'recipient.email@example.com',
+                values: {"user_id": 123456})
           ],
-          attachments: [new File(type: 'text/plain', name: 'myfile.txt', content: 'ZXhhbXBsZSBmaWxl')],
-          images: [new File(type: 'image/png', name: 'image.png', content: 'ZXhhbXBsZSBmaWxl')],
+          attachments: [
+            new File(
+                type: 'text/plain',
+                name: 'myfile.txt',
+                content: 'ZXhhbXBsZSBmaWxl')
+          ],
+          images: [
+            new File(
+                type: 'image/png',
+                name: 'image.png',
+                content: 'ZXhhbXBsZSBmaWxl')
+          ],
         );
         final archive = KeyedArchive.archive(recipient);
 

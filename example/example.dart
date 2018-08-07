@@ -14,7 +14,10 @@ void main() async {
 
   final recipients = [
     new Recipient(email: 'customer1@example.com', name: 'Customer 1'),
-    new Recipient(email: 'customer2@example.com', name: 'Customer 2', type: RecipientType.bcc),
+    new Recipient(
+        email: 'customer2@example.com',
+        name: 'Customer 2',
+        type: RecipientType.bcc),
   ];
 
   final message = new OutgoingMessage(
