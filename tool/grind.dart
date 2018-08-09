@@ -20,19 +20,10 @@ checkFormat() {
     fail('Code is not properly formatted. Run `grind format`');
 }
 
-@Task('Runs dartanalyzer')
+@Task('Runs dartanalyzer and makes sure there are no warnings or lint proplems')
 analyze() async {
-  final executable = 'dartanalyzer',
-      arguments = ['--fatal-infos', '--fatal-warnings', '.'];
-  log('$executable ${arguments.join(' ')}');
-  final result = Process.runSync(executable, arguments);
-
-  if (result.exitCode != 0) {
-    log(result.stdout.toString());
-    fail('Analyzer discovered problems');
-  } else {
-    log('All good!');
-  }
+  await runAsync('dartanalyzer',
+      arguments: ['.', '--fatal-hints', '--fatal-warnings', '--fatal-lints']);
 }
 
 @Task()
