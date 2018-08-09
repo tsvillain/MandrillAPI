@@ -2,6 +2,7 @@ import 'dart:io' hide ProcessException;
 
 import 'package:grinder/grinder.dart';
 import 'package:logging/logging.dart';
+import 'package:grind_publish/grind_publish.dart' as grind_publish;
 
 final int dartFmtLineLenght = 80;
 
@@ -43,3 +44,9 @@ testUnit() =>
 @DefaultTask()
 @Depends(checkFormat, analyze, testUnit)
 test() => true;
+
+@Task('Automatically publishes this package if the pubspec version increases')
+autoPublish() async {
+  final credentials = grind_publish.Credentials.fromEnvironment();
+  await grind_publish.autoPublish('mandrill', credentials);
+}
