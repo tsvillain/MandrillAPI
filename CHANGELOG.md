@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.1
+
+- Make `Recipient.name` optional.
+
 ## 1.1.0
 
 - Expose `package:mandrill/mandrill.dart` in `package:mandrill/mandrill_server.dart`

@@ -21,7 +21,7 @@ class Recipient extends Encoding {
 
   Recipient({
     @required this.email,
-    @required this.name,
+    this.name,
     this.type: RecipientType.to,
   });
 
