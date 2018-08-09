@@ -1,9 +1,18 @@
 image: google/dart:2
 
-stages:
-  - test
+before_script:
+- export PATH="$PATH":"~/.pub-cache/bin"
+- pub global activate grinder
+- pub get
 
-run_tests:
+test:
   stage: test
   script:
-    - ./ci/test.sh
+  - grind test
+
+publish:
+  stage: deploy
+  script:
+  - grind auto-publish
+  only:
+  - master@exitlive/mandrill-dart
