@@ -10,7 +10,8 @@ main() {
   group('Error', () {
     group('ErrorResponse', () {
       test('properly decodes object', () {
-        final Map<String, dynamic> json = jsonDecode(test_data.errorResponse);
+        final json =
+            jsonDecode(test_data.errorResponse) as Map<String, dynamic>;
         final archive = KeyedArchive.unarchive(json);
         final errorResponse = ErrorResponse()..decode(archive);
 
