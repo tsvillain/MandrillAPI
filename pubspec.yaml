@@ -6,7 +6,6 @@ environment:
 authors:
 - Matias Meno <matias.meno@exit.live>
 homepage: https://gitlab.com/exitlive/mandrill-dart
-documentation: https://mandrillapp.com/api/docs/index.dart.html
 dependencies:
   codable: ^1.0.0
   meta: ^1.1.6

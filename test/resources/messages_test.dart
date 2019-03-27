@@ -25,8 +25,8 @@ main() {
         when(mockClient.call<SentMessagesResponse>(
                 'messages/send', captureAny, captureAny))
             .thenAnswer((invocation) {
-          final SentMessagesResponse response =
-              invocation.positionalArguments[2];
+          final response =
+              invocation.positionalArguments[2] as SentMessagesResponse;
           return new Future.value(defaultResponseParser<SentMessagesResponse>(
               response, jsonDecode(test_data.sendMessageResponse)));
         });
@@ -59,8 +59,8 @@ main() {
         when(mockClient.call<SentMessagesResponse>(
                 'messages/send-template', captureAny, captureAny))
             .thenAnswer((invocation) {
-          final SentMessagesResponse response =
-              invocation.positionalArguments[2];
+          final response =
+              invocation.positionalArguments[2] as SentMessagesResponse;
           return new Future.value(defaultResponseParser<SentMessagesResponse>(
               response, jsonDecode(test_data.sendMessageResponse)));
         });
